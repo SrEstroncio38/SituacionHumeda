@@ -8,11 +8,13 @@ public class Goal : MonoBehaviour
     public Water2D.Water2D_Spawner spawner;
 
     private BoxCollider2D goal;
+    private WorldController world;
 
     // Start is called before the first frame update
     void Start()
     {
         goal = GetComponentInChildren<BoxCollider2D>();
+        world = GetComponentInParent<WorldController>();
     }
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class Goal : MonoBehaviour
     private void CompleteLevel()
     {
 
-        // TODO finalizar nivel
+        world.levelComplete.SetActive(true);
         Time.timeScale = 0.0f;
 
     }

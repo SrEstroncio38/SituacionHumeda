@@ -169,7 +169,7 @@
 			microSpawns = new List<microSpawn>(5); // Up to 5 microspwawn
 
 
-            instance.Spawn();
+            //instance.Spawn();
         }
 
 		public void RunMicroSpawn(Vector3 pos, int amount, Vector2 initVel)

@@ -10,16 +10,27 @@ public class Gyroscope : MonoBehaviour
     private UnityEngine.Gyroscope gyro;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() { 
+    
+        gyroAvailable = EnableGyro();
+    }
+
+    private bool EnableGyro()
     {
-        gyro = Input.gyro;
-        gyroAvailable = SystemInfo.supportsGyroscope;
+        if (SystemInfo.supportsGyroscope)
+        {
+            gyro = Input.gyro;
+            gyro.enabled = true;
+            return true;
+        }
+
+        return false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Physics2D.gravity = gyro.gravity;
+        Physics2D.gravity = gyro.gravity * 9.81f;
         Debug.Log(gyro.rotationRate);
     }
 }

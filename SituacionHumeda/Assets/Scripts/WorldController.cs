@@ -7,13 +7,11 @@ using UnityEngine.SceneManagement;
 public class WorldController : MonoBehaviour
 {
 
+    public bool autoStart = false;
+
     [Header("UI")]
     public UnityEngine.UI.Text playText;
     public GameObject levelComplete;
-
-    [Header("Scenes")]
-    public Scene nextLevel;
-    public Scene backScene;
 
     private Water2D.Water2D_Spawner spawner;
     private bool _started = false;
@@ -27,7 +25,12 @@ public class WorldController : MonoBehaviour
     void Start() {
         spawner = GetComponentInChildren<Water2D.Water2D_Spawner>();
         gyroAvailable = EnableGyro();
-        levelComplete.SetActive(false);
+        if (levelComplete != null)
+            levelComplete.SetActive(false);
+        if (autoStart)
+        {
+            spawner.Spawn();
+        }
     }
 
     private bool EnableGyro()
@@ -45,6 +48,12 @@ public class WorldController : MonoBehaviour
     void Update()
     {
         gravity = new Vector2(Input.gyro.gravity.x, Input.gyro.gravity.y);
+        float y = gravity.y;
+        if (y > 0)
+        {
+            y = 0;
+        }
+        gravity = new Vector2(gravity.x, y);
         gravity.Normalize();
         gravity *= 9.81f;
         magnitude = gravity.magnitude;
@@ -66,19 +75,9 @@ public class WorldController : MonoBehaviour
         }
     }
 
-    public void GoToNextLevel()
+    public void GoToScene(int scene)
     {
-        if (nextLevel != null)
-        {
-            SceneManager.LoadScene(nextLevel.name);
-        }
-    }
-
-    public void GoToMenu()
-    {
-        if (backScene != null)
-        {
-            SceneManager.LoadScene(backScene.name);
-        }
+        //Time.timeScale = 1.0f;
+        SceneManager.LoadScene(scene);
     }
 }

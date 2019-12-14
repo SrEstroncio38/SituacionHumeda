@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class Gyroscope : MonoBehaviour
 {
-
+    [ReadOnly]
     public bool gyroAvailable = false;
-
-    private UnityEngine.Gyroscope gyro;
+    public Vector2 gravity;
+    public float magnitude;
 
     // Start is called before the first frame update
     void Start() { 
@@ -19,8 +20,7 @@ public class Gyroscope : MonoBehaviour
     {
         if (SystemInfo.supportsGyroscope)
         {
-            gyro = Input.gyro;
-            gyro.enabled = true;
+            Input.gyro.enabled = true;
             return true;
         }
 
@@ -30,7 +30,10 @@ public class Gyroscope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Physics2D.gravity = gyro.gravity * 9.81f;
-        Debug.Log(gyro.rotationRate);
+        gravity = new Vector2(Input.gyro.gravity.x, Input.gyro.gravity.y);
+        gravity.Normalize();
+        gravity *= 9.81f;
+        magnitude = gravity.magnitude;
+        Physics2D.gravity = gravity;
     }
 }

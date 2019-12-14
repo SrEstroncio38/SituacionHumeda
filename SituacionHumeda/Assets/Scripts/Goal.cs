@@ -40,7 +40,7 @@ public class Goal : MonoBehaviour
     {
 
         world.levelComplete.SetActive(true);
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
 
     }
 

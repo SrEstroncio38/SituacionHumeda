@@ -25,6 +25,7 @@ public class WorldController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        Time.timeScale = 1.0f;
         spawner = GetComponentInChildren<Water2D.Water2D_Spawner>();
         gyroAvailable = EnableGyro();
         if (levelComplete != null)
@@ -82,7 +83,6 @@ public class WorldController : MonoBehaviour
 
     public void GoToScene(int scene)
     {
-        //Time.timeScale = 1.0f;
         SceneManager.LoadScene(scene);
     }
 }

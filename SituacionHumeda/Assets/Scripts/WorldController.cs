@@ -10,7 +10,9 @@ public class WorldController : MonoBehaviour
     public bool autoStart = false;
 
     [Header("UI")]
-    public UnityEngine.UI.Text playText;
+    public UnityEngine.UI.Button playButton;
+    public Sprite restartImage;
+    public Sprite restartImageP;
     public GameObject levelComplete;
 
     private Water2D.Water2D_Spawner spawner;
@@ -66,7 +68,10 @@ public class WorldController : MonoBehaviour
         {
             spawner.Spawn();
             _started = true;
-            playText.text = "Restart";
+            playButton.GetComponent<UnityEngine.UI.Image>().sprite = restartImage;
+            UnityEngine.UI.SpriteState ss = playButton.spriteState;
+            ss.pressedSprite = restartImageP;
+            playButton.spriteState = ss;
         }
         else
         {

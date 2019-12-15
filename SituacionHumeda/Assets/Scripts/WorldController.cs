@@ -85,4 +85,18 @@ public class WorldController : MonoBehaviour
     {
         SceneManager.LoadScene(scene);
     }
+
+    public void CloseGame()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+            activity.Call<bool>("moveTaskToBack", true);
+        }
+        else
+        {
+            Application.Quit();
+        }
+    }
+
 }

@@ -26,6 +26,10 @@ public class Fan : MonoBehaviour
     {
         windStrength = 1000 * MicInput.MicLoudness;
         Debug.Log(windStrength);
+        if(windStrength > 0.5)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = !this.GetComponent<SpriteRenderer>().flipX;
+        }
         if (windStrength > 1)
         {
             windStrength = 1;

@@ -14,6 +14,7 @@ public class WorldController : MonoBehaviour
     public Sprite restartImage;
     public Sprite restartImageP;
     public GameObject levelComplete;
+    public GameObject pauseMenu;
 
     private Water2D.Water2D_Spawner spawner;
     private bool _started = false;
@@ -30,6 +31,8 @@ public class WorldController : MonoBehaviour
         gyroAvailable = EnableGyro();
         if (levelComplete != null)
             levelComplete.SetActive(false);
+        if (pauseMenu != null)
+            pauseMenu.SetActive(false);
         if (autoStart)
         {
             spawner.Spawn();
@@ -84,6 +87,18 @@ public class WorldController : MonoBehaviour
     public void GoToScene(int scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    public void PauseGame()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0.0f;
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     public void CloseGame()

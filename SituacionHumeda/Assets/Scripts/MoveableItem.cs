@@ -20,8 +20,8 @@ public class MoveableItem : MonoBehaviour
         if (held == true)
         { 
             mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mPos.z = 0;
-            this.gameObject.transform.localPosition = mPos - startPos;
+            transform.position = mPos - startPos;
+            transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         }
     }
 
@@ -30,7 +30,7 @@ public class MoveableItem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - this.transform.localPosition;
+            startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - this.transform.position;
             startPos.z = 0;
             held = true;
         }
